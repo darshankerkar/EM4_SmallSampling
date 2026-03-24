@@ -9,38 +9,48 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Tooltip, Legend);
 
+const MONO = "'Geist Mono', 'Fira Code', monospace";
+const BG   = '#0E1318';
+const BORDER = '#1C2128';
+
 const TOOLTIP = {
-  backgroundColor: '#1a1a24',
-  borderColor: '#374151',
+  backgroundColor: '#080C10',
+  borderColor: '#1C2128',
   borderWidth: 1,
-  titleColor: '#f1f5f9',
-  bodyColor: '#9ca3af',
-  padding: 10,
+  titleColor: '#F0F6FC',
+  bodyColor: '#7D8590',
+  titleFont: { size: 12, family: MONO, weight: '600' },
+  bodyFont:  { size: 12, family: MONO },
+  padding: 12,
   cornerRadius: 8,
   displayColors: true,
-};
-
-const AXES = {
-  x: {
-    grid: { display: false },
-    border: { color: '#1F2937' },
-    ticks: { color: '#6b7280', font: { size: 11, family: 'Inter' } },
-  },
-  y: {
-    beginAtZero: true,
-    grid: { color: '#1a1a24' },
-    border: { color: '#1F2937' },
-    ticks: { color: '#6b7280', font: { size: 11, family: 'Inter' } },
+  boxPadding: 5,
+  callbacks: {
+    title: (items) => `Student ${items[0].label}`,
   },
 };
 
 const LEGEND = {
   labels: {
-    color: '#9ca3af',
-    font: { size: 12, family: 'Inter' },
+    color: '#7D8590',
+    font: { size: 11, family: MONO },
     usePointStyle: true,
-    pointStyleWidth: 8,
+    pointStyleWidth: 10,
     padding: 20,
+  },
+};
+
+const AXES = {
+  x: {
+    grid: { display: false },
+    border: { display: false },
+    ticks: { color: '#7D8590', font: { size: 11, family: MONO }, padding: 8 },
+  },
+  y: {
+    beginAtZero: true,
+    grid: { color: '#1C2128', drawBorder: false },
+    border: { display: false },
+    ticks: { color: '#7D8590', font: { size: 11, family: MONO }, padding: 8 },
   },
 };
 
@@ -49,23 +59,21 @@ export const ErrorBarChart = ({ results }) => {
   return (
     <Bar
       data={{
-        labels: results.map((r) => `S${r.id}`),
+        labels: results.map(r => `S${String(r.id).padStart(2, '0')}`),
         datasets: [
           {
             label: 'AI Error',
-            data: results.map((r) => r.AIError),
-            backgroundColor: 'rgba(59,130,246,0.65)',
-            borderColor: '#3b82f6',
-            borderWidth: 1,
+            data: results.map(r => r.AIError),
+            backgroundColor: 'rgba(37,99,235,0.75)',
+            hoverBackgroundColor: 'rgba(37,99,235,1)',
             borderRadius: 4,
             borderSkipped: false,
           },
           {
             label: 'Human Error',
-            data: results.map((r) => r.HumanError),
-            backgroundColor: 'rgba(239,68,68,0.55)',
-            borderColor: '#ef4444',
-            borderWidth: 1,
+            data: results.map(r => r.HumanError),
+            backgroundColor: 'rgba(239,68,68,0.60)',
+            hoverBackgroundColor: 'rgba(239,68,68,1)',
             borderRadius: 4,
             borderSkipped: false,
           },
@@ -73,7 +81,8 @@ export const ErrorBarChart = ({ results }) => {
       }}
       options={{
         responsive: true,
-        animation: { duration: 700, easing: 'easeInOutCubic' },
+        maintainAspectRatio: false,
+        animation: { duration: 800, easing: 'easeOutQuart' },
         plugins: { legend: LEGEND, tooltip: TOOLTIP },
         scales: AXES,
       }}
@@ -83,31 +92,37 @@ export const ErrorBarChart = ({ results }) => {
 
 export const PredictionsLineChart = ({ results }) => {
   if (!results?.length) return null;
-  const mk = (label, data, color, dash = false) => ({
+
+  const ds = (label, data, color, dashed) => ({
     label,
     data,
     borderColor: color,
     backgroundColor: 'transparent',
     pointBackgroundColor: color,
-    pointRadius: 4,
-    pointHoverRadius: 6,
-    tension: 0.35,
-    borderWidth: 2,
-    ...(dash ? { borderDash: [5, 4] } : {}),
+    pointBorderColor: '#080C10',
+    pointBorderWidth: 2,
+    pointRadius: 5,
+    pointHoverRadius: 7,
+    tension: 0.4,
+    borderWidth: dashed ? 2 : 2.5,
+    borderDash: dashed ? [5, 5] : [],
   });
+
   return (
     <Line
       data={{
-        labels: results.map((r) => `S${r.id}`),
+        labels: results.map(r => `S${String(r.id).padStart(2, '0')}`),
         datasets: [
-          mk('Actual', results.map((r) => r.Actual), '#ffffff'),
-          mk('AI Prediction', results.map((r) => r.AIPred), '#3b82f6', true),
-          mk('Human Prediction', results.map((r) => r.HumanPred), '#ef4444', true),
+          ds('Actual',           results.map(r => r.Actual),    '#F0F6FC', false),
+          ds('AI Prediction',    results.map(r => r.AIPred),    '#2563EB', true),
+          ds('Human Prediction', results.map(r => r.HumanPred), '#EF4444', true),
         ],
       }}
       options={{
         responsive: true,
-        animation: { duration: 700 },
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        animation: { duration: 800, easing: 'easeOutQuart' },
         plugins: { legend: LEGEND, tooltip: TOOLTIP },
         scales: AXES,
       }}
