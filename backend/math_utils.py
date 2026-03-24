@@ -76,8 +76,9 @@ def calculate_t_test(ai_errors, human_errors):
     
     # 95% Confidence interval (approx critical t value = 2.262 for df=9)
     # Using approx 2.0 for simpler logic if df isn't 9, but we can just use 2.262 for n=10.
-    t_crit = 2.262 if n == 10 else 2.0  
-    margin_error = t_crit * (std_dev_diff / math.sqrt(n))
+    t_crit = 2.262 if n == 10 else 2.0
+    # Guard: if std_dev_diff == 0, no spread → CI collapses to the mean
+    margin_error = t_crit * (std_dev_diff / math.sqrt(n)) if std_dev_diff != 0 else 0.0
     ci_lower = mean_diff - margin_error
     ci_upper = mean_diff + margin_error
     

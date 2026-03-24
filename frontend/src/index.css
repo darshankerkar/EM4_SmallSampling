@@ -1,6 +1,33 @@
 @import "tailwindcss";
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-  background-color: #0f172a; /* slate-900 */
-  color: #f8fafc; /* slate-50 */
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0B0B0F;
+  color: #e2e8f0;
+  -webkit-font-smoothing: antialiased;
 }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #111217; }
+::-webkit-scrollbar-thumb { background: #374151; border-radius: 99px; }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+/* collapsible toggle */
+.panel { overflow: hidden; transition: max-height 0.5s ease, opacity 0.35s ease; }
+.panel-closed { max-height: 0; opacity: 0; pointer-events: none; }
+.panel-open   { max-height: 4000px; opacity: 1; }
+
+/* row fade-in */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up            { animation: fadeUp 0.4s ease both; }
+.fade-up.d-1        { animation-delay: 0.08s; }
+.fade-up.d-2        { animation-delay: 0.16s; }
+.fade-up.d-3        { animation-delay: 0.24s; }
+.fade-up.d-4        { animation-delay: 0.32s; }

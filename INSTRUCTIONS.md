@@ -21,6 +21,12 @@ uvicorn app:app --reload --port 8000
 
 ## 2. Start the Frontend
 
+GO TO WINDOWS POWERSHELL AND RUN THE FOLLOWING COMMANDS:
+
+```bash
+winget install OpenJS.NodeJS.LTS
+```
+
 Open a second terminal and navigate to the frontend directory:
 ```bash
 cd frontend
