@@ -133,7 +133,7 @@ export default function App() {
       const { data } = await axios.get(`${API}/generate-sample?n=10`);
       setStudents(data.students);
       const blank = {};
-      data.students.forEach(s => { blank[s.id] = ''; });
+      data.students.forEach(s => { blank[s.id] = '0'; });
       setPreds(blank);
     } catch { setErr('Cannot reach backend. Is uvicorn running on port 8000?'); }
     setFetching(false);
@@ -168,9 +168,7 @@ export default function App() {
               <h1 style={{ fontFamily: 'var(--font-sans)', fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
                 AI vs Human — Paired t-Test
               </h1>
-              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--text-muted)', marginTop: 6 }}>
-                Small-sample statistical comparison · Manual implementation · No scipy
-              </p>
+              
             </div>
             <button className="btn-ghost" onClick={load} disabled={fetching}>
               <RefreshCw size={14} style={fetching ? { animation: 'spin 1s linear infinite' } : {}} />
