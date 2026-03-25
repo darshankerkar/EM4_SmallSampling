@@ -1,6 +1,6 @@
 # POSTER & PPT CONTENT
-### Project: AI vs Human — Small Sample Paired t-Test
-### Course: EM-4 / BSC07 · VIT Vadodara
+
+
 
 > **Note to teammate:** Everything below is copy-paste ready.
 > Section A is for the Canva poster designer. Section B is your PPT, slide by slide.
@@ -17,7 +17,7 @@
 ## A1 · POSTER TITLE OPTIONS (choose one)
 
 **Option 1 — Technical:**
-> AI vs Human: A Small-Sample Paired t-Test on Student Score Prediction Accuracy
+> AI vs Human: A Small-Sample t-Test on Student Score Prediction Accuracy
 
 **Option 2 — Catchy:**
 > Can AI Out-Predict You? We Did the Math.
@@ -28,17 +28,6 @@
 
 > A live statistical analysis comparing AI model accuracy against human intuition
 > using a manually implemented paired t-test — no black boxes, no scipy.
-
----
-
-## A3 · TEAM & COURSE INFO BLOCK
-
-```
-Course    :  Engineering Mathematics 4 (EM-4 / BSC07)
-College   :  Vishwakarma Institute of Technology, Vadodara
-Topic     :  Small Sampling Statistics — Paired t-Test
-Academic Year : 2024–25
-```
 
 ---
 
@@ -144,29 +133,6 @@ A machine-vision system and a trained floor technician both inspect the same 10 
 
 ---
 
-## A10 · DESIGNER NOTES
-
-**Color Palette (light theme — matches the dashboard):**
-- Page background: `#F0F4FF` (soft blue-gray — not pure white)
-- Cards / panels: `#FFFFFF` with border `#E2E8F0` and subtle shadow
-- Primary accent (AI, formulas, t-stat): `#4F6EF7` (blue)
-- Positive / significant result: `#10B981` (green)
-- Human error / rejection region: `#F43F5E` (red)
-- Text primary: `#0F172A` | Text muted: `#64748B`
-
-**Typography:**
-- Headings: **Inter Bold** (700) or **Plus Jakarta Sans Bold**
-- Body / captions: Inter Regular (400) or Medium (500)
-- All formulas and numbers: **JetBrains Mono** (monospace) — keeps math aligned
-
-**Layout suggestion:**
-- Two-column layout: left column = question + steps + formula, right column = result box + bullets
-- Hero graphic in the center / top: the **t-distribution bell curve** with the shaded rejection regions (red) and acceptance region (blue) — this is the most visually striking element of the dashboard. Screenshot it from the live dashboard at http://localhost:5173 and drop it here.
-- Keep generous white space — this is an academic poster, not a flyer
-
----
----
-
 # SECTION B — PPT SLIDE BY SLIDE
 
 ---
@@ -179,18 +145,8 @@ A machine-vision system and a trained floor technician both inspect the same 10 
 **Slide Content:**
 ```
 Comparing AI Model Accuracy Against Human Intuition
-Using a Manually Implemented Paired t-Test
+Using a Manually Implemented Small Sample t-Test
 
-Course   :  Engineering Mathematics 4 (EM-4 / BSC07)
-College  :  Vishwakarma Institute of Technology, Vadodara
-Topic    :  Small Sampling Statistics
-Date     :  March 2025
-```
-
-**🎤 Speaker Notes:**
-> "Good morning / afternoon, sir. Our project is called 'AI vs Human — Paired t-Test.' The core idea is simple: we have an AI model that predicts student end-semester scores, and we also have a human doing the same thing. The question we're answering is — who's more accurate, and can we prove it statistically? The method we used is the paired t-test, which is the topic allocated to us for EM-4. Everything you're going to see — the math, the formula, the p-value calculation — was implemented manually, without using any statistical library. Let us walk you through it."
-
----
 
 ## SLIDE 2 — THE PROBLEM
 
@@ -218,10 +174,6 @@ than the human's prediction error?
 Or is the difference just random variation?
 ```
 
-**🎤 Speaker Notes:**
-> "Imagine you're a professor and I show you a student's mid-sem marks, attendance, and study hours. You'd probably be able to make a rough guess about their end-sem score. Now, a machine learning model trained on hundreds of similar students does the exact same thing — but using math instead of intuition. Our project asks: is the AI's guess actually better, or does it just feel better? The only way to answer this honestly is with a statistical test — not by eyeballing numbers. That's the problem we set out to solve."
-
----
 
 ## SLIDE 3 — WHAT IS A SMALL SAMPLE t-TEST?
 
@@ -248,9 +200,6 @@ The t-Distribution
 • Controlled by degrees of freedom: df = n − 1 = 9
 • As n increases, t-distribution converges to normal distribution
 ```
-
-**🎤 Speaker Notes:**
-> "Think of it this way, sir. If I flip a coin 1000 times and get 520 heads, I'm pretty confident it's fair — I have a lot of data. But if I flip it only 10 times and get 6 heads, I can't be as confident — there's more uncertainty. The t-distribution is designed for exactly this situation: small samples, unknown population spread. The Z-test would be overconfident here. With n equal to 10 and degrees of freedom equal to 9, the t-test gives us an honest, wider range to account for the fact that our sample is small."
 
 ---
 
@@ -282,10 +231,7 @@ Why NOT an independent two-sample t-test?
 • Paired design removes between-student noise
 ```
 
-**🎤 Speaker Notes:**
-> "Sir, the reason we chose the paired t-test specifically — and not the regular two-sample t-test — is because of how the data is structured. Both the AI and the human make predictions for the exact same 10 students. So when we compare errors, we compare them student by student. S01's AI error and S01's human error are both influenced by S01's actual score. If we treated them as two separate, independent groups, we'd be throwing away that natural link — and that would make our test weaker. The paired design keeps that link intact and makes the test more sensitive to detecting a real difference."
 
----
 
 ## SLIDE 5 — DATASET & MODEL
 
@@ -318,10 +264,6 @@ The AI Model
 • No static file — data is generated fresh each run
 ```
 
-**🎤 Speaker Notes:**
-> "The dataset is synthetic — we generated it in code rather than using real student records, which avoids privacy concerns and makes the project fully reproducible. The features are things any professor would recognise: mid-sem marks, internal marks, attendance, and hours of study and sleep per day. The target is the end-semester score out of 100. There's a noise term in the formula which is important — it means the AI cannot just memorise the relationship and get perfect predictions. It has to generalise. The Linear Regression is trained once on startup with 100 records, and then predicts for 10 fresh students every time you click New Sample."
-
----
 
 ## SLIDE 6 — MANUAL IMPLEMENTATION
 
@@ -356,11 +298,6 @@ p-Value: Abramowitz & Stegun (1964) polynomial approximation
 of the standard normal CDF. Two-tailed. No library used.
 ```
 
-**🎤 Speaker Notes:**
-> "This is the part we want to emphasise most, sir. We didn't write scipy.stats.ttest_rel and call it a day. Every single step is coded manually. Step 1 is computing the difference in errors per student. Step 2 is the average of those 10 differences. Step 3 is the standard deviation — and we divide by n-minus-1, not n. That's called Bessel's correction, and it gives an unbiased estimate of the true population variance when working with small samples. Step 4 is the t-statistic itself. Even the p-value is computed using a polynomial approximation from a 1964 mathematical handbook, without any library call. We know where every number comes from."
-
----
-
 ## SLIDE 7 — HYPOTHESES & DECISION RULE
 
 **Slide Title:**
@@ -394,10 +331,6 @@ The dashboard also supports α = 0.01  (crit: ±3.250)
                           and α = 0.10  (crit: ±1.833)
 ```
 
-**🎤 Speaker Notes:**
-> "Sir, H-naught says the mean difference in errors across the 10 students is zero — meaning AI and human predict equally well on average. H-1 says there's a real difference. We chose a two-tailed test because we genuinely had no basis to assume the AI would definitely be better before running the experiment — it could have gone either way. At alpha equals 0.05, which is the standard threshold in most academic and scientific work, the critical t-value for 9 degrees of freedom is 2.262. If our computed t lands beyond that boundary, or if the p-value drops below 0.05, we reject H-naught. The dashboard also lets you switch alpha in real time, so you can see how that boundary moves."
-
----
 
 ## SLIDE 8 — RESULTS & INTERPRETATION
 
@@ -430,10 +363,6 @@ d̄ ± 2.262 × (Sd / √10)
 If this interval excludes 0 → all three measures agree: reject H₀
 ```
 
-**🎤 Speaker Notes:**
-> "Once you type in your predictions, the dashboard gives you four numbers immediately — no button press needed, it recalculates on every keystroke. The two mean errors tell you who performed better in raw terms. The t-statistic tells you how many standard errors the mean difference is away from zero. The p-value tells you how surprising this result would be if H-naught were true. Cohen's d is something extra — it tells you not just 'is the difference real' but 'does it matter in practice.' A medium effect of 0.6 means the AI is better by a meaningful margin, not just a tiny fraction that a large sample happened to amplify. And the confidence interval should be consistent with both the t-test and Cohen's d — if all three point in the same direction, you can be confident in the conclusion."
-
----
 
 ## SLIDE 9 — LIVE DEMO
 
@@ -470,10 +399,6 @@ What to show — follow this order:
    Final t-statistic displayed large at the bottom
 ```
 
-**🎤 Speaker Notes:**
-> "Sir, instead of explaining what the dashboard does, let us just show you. We'll open it live right now. First I'll click New Sample — these students are generated fresh right now, not pre-loaded. Then I'll type in my guesses for each student's end-sem score, and watch every metric update as I type. Then I'll change alpha to show how the decision changes with the same data. I'll point to the t-distribution curve and show exactly where our t-statistic lands relative to the critical values. Finally I'll open the Mathematical Derivation panel so you can see every step — d̄, Sd, t — computed from what I just entered. This isn't a simulation. Every number is calculated from the math we built."
-
----
 
 ## SLIDE 10 — APPLICATIONS & CONCLUSION
 
@@ -510,10 +435,7 @@ proves understanding of the math, not just the syntax.
 Thank you.
 ```
 
-**🎤 Speaker Notes:**
-> "To close, sir — the method we used here is not specific to education. Any time you want to compare two measurement systems on the same set of subjects with a small sample, this is exactly the right approach. Medical imaging teams do this before deploying AI in hospitals. Grading companies do this before using AI scores for real students at scale. Quality control engineers do this before replacing a human inspector. What we've demonstrated today is that you can implement the entire statistical machinery from scratch — no scipy, just logic and math. The differences, the mean, Bessel's correction, the t-statistic, the p-value approximation from a 1964 handbook — all of it. That's what makes this project genuinely educational and not just a library call. Thank you, sir. We're happy to answer any questions."
 
----
 
 ---
 
