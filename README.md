@@ -1,15 +1,15 @@
 # AI vs Human Prediction — Paired t-Test
 
 ![Course](https://img.shields.io/badge/Course-Engineering%20Mathematics%204%20(BSC07)-4F6EF7?style=flat-square)
-![College](https://img.shields.io/badge/College-VIT%20Vadodara-0EA5E9?style=flat-square)
+
 ![Topic](https://img.shields.io/badge/Topic-Small%20Sampling%20t--Test-10B981?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-F43F5E?style=flat-square&logo=python&logoColor=white)
 ![Backend](https://img.shields.io/badge/Backend-FastAPI%20%2B%20Uvicorn-009688?style=flat-square)
 ![Frontend](https://img.shields.io/badge/Frontend-React%2019%20%2B%20Vite-61DAFB?style=flat-square&logo=react)
 
 > **Course:** Engineering Mathematics 4 (EM-4 / BSC07)  
-> **Topic Allocated:** Small Sampling — Paired t-Test  
-> **College:** Vishwakarma Institute of Technology, Vadodara
+> **Topic Allocated:** Small Sampling — t-Test  
+
 
 ---
 
@@ -24,6 +24,8 @@ This project answers a concrete statistical question: **is an AI model's predict
 **The statistical connection:** For each student, the absolute prediction error is computed for both the AI (`|Actual − AIPred|`) and the human (`|Actual − HumanPred|`). These 10 paired error values are fed into a **manually implemented paired t-test** in `math_utils.py` — written from scratch using only Python's built-in `math` module, with no `scipy`, `statsmodels`, or any statistical library involved. The test determines whether the mean difference in errors is statistically significant, or merely due to chance. Every calculation updates live in the browser as the user types, with no form submission required.
 
 ---
+
+![Alt text](./img.png)
 
 ## Why Paired t-Test?
 
@@ -314,69 +316,6 @@ EM4_SmallSampling/
 
 ---
 
-## How to Run
-
-These commands are taken directly from `INSTRUCTIONS.md` and `package.json`.
-
-### Step 0 — Install Node.js (first time only, Windows)
-
-```bash
-winget install OpenJS.NodeJS.LTS
-```
-
-### Step 1 — Start the backend
-
-```bash
-cd backend
-pip install -r requirements.txt    # first time only
-uvicorn app:app --reload --port 8000
-```
-
-The FastAPI server starts at **http://localhost:8000**. The model is trained automatically on startup. You can verify it is alive at http://localhost:8000/docs (auto-generated Swagger UI).
-
-### Step 2 — Start the frontend (new terminal)
-
-```bash
-cd frontend
-npm i                              # first time only
-npm run sakshi
-```
-
-> The dev script is named `sakshi` (not the default `dev`) — this is defined in `package.json` under `scripts.sakshi: "vite"`. The Vite server starts at **http://localhost:5173**.
-
-Open **http://localhost:5173** in your browser. The page will fetch 10 students from the backend automatically. Type predictions into the input fields to see all statistics update live.
-
----
-
-## Requirements
-
-### Backend (`backend/requirements.txt` + imports in source files)
-
-```
-fastapi          # REST API framework (app.py)
-uvicorn          # ASGI server to run FastAPI
-pandas           # DataFrame construction for model.predict() (app.py)
-numpy            # Synthetic data generation, clip(), random (app.py)
-scikit-learn     # LinearRegression model (app.py)
-```
-
-> `math_utils.py` imports **only** Python's built-in `math` module (`math.sqrt`, `math.exp`). No external statistical libraries are used for the t-test.
-
-### Frontend (`package.json` dependencies)
-
-```
-react@^19.2.4            # UI framework
-react-dom@^19.2.4        # DOM rendering
-vite@^8.0.1              # Build tool and dev server
-chart.js@^4.5.1          # Canvas-based charting engine
-react-chartjs-2@^5.3.1   # React wrapper for chart.js
-axios@^1.13.6            # HTTP client for GET /generate-sample
-lucide-react@^1.6.0      # Icons (RefreshCw, CheckCircle2, AlertTriangle, Bot, User)
-tailwindcss@^4.2.2       # Utility CSS (imported in index.css via @import "tailwindcss")
-```
-
----
-
 ## Real World Applications
 
 The exact same approach used here — manually implemented paired t-test comparing two evaluators (one automated, one human) on the same small set of subjects — applies directly to:
@@ -405,9 +344,4 @@ The exact same approach used here — manually implemented paired t-test compari
 
 ---
 
-<div align="center">
 
-*Submitted for Engineering Mathematics 4 (BSC07) · Small Sampling t-Test*  
-*Vishwakarma Institute of Technology, Vadodara · 2024–25*
-
-</div>
